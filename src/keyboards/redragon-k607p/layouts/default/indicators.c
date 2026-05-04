@@ -22,11 +22,11 @@ void indicators_start()
 void indicators_pre_update()
 {
     // set all rgb sinks to low (animation step will enable needed ones)
-    P0 &= ~(RGB_R2R_P0_2 | RGB_R0B_P0_3 | RGB_R0R_P0_4);
+    P0 &= ~(RGB_R3R_P0_2 | RGB_R1B_P0_3 | RGB_R1R_P0_4);
     P1 &= ~(RGB_ULR_P1_1 | RGB_ULG_P1_2 | RGB_ULB_P1_3);
-    P4 &= ~(RGB_R4B_P4_3 | RGB_R4R_P4_4 | RGB_R3R_P4_5 | RGB_R3B_P4_6);
-    P5 &= ~(RGB_R2B_P5_7);
-    P6 &= ~(RGB_R0G_P6_1 | RGB_R1G_P6_2 | RGB_R2G_P6_3 | RGB_R3G_P6_4 | RGB_R4G_P6_5 | RGB_R1B_P6_6 | RGB_R1R_P6_7);
+    P4 &= ~(RGB_R0B_P4_0 | RGB_R0R_P4_1 | RGB_R5B_P4_3 | RGB_R5R_P4_4 | RGB_R4R_P4_5 | RGB_R4B_P4_6);
+    P5 &= ~(RGB_R3B_P5_7);
+    P6 &= ~(RGB_R0G_P6_0 | RGB_R1G_P6_1 | RGB_R2G_P6_2 | RGB_R3G_P6_3 | RGB_R4G_P6_4 | RGB_R5G_P6_5 | RGB_R2B_P6_6 | RGB_R2R_P6_7);
 
     indicators_pwm_disable();
 }
@@ -79,6 +79,7 @@ bool indicators_update_step(keyboard_state_t *keyboard, uint8_t current_step)
             RGB_R2R = 1;
             RGB_R3R = 1;
             RGB_R4R = 1;
+            RGB_R5R = 1;
             RGB_ULR = 1;
 
             color_intensity = red_intensity;
@@ -90,6 +91,7 @@ bool indicators_update_step(keyboard_state_t *keyboard, uint8_t current_step)
             RGB_R2G = 1;
             RGB_R3G = 1;
             RGB_R4G = 1;
+            RGB_R5G = 1;
             RGB_ULG = 1;
 
             color_intensity = green_intensity;
@@ -101,6 +103,7 @@ bool indicators_update_step(keyboard_state_t *keyboard, uint8_t current_step)
             RGB_R2B = 1;
             RGB_R3B = 1;
             RGB_R4B = 1;
+            RGB_R5B = 1;
             RGB_ULB = 1;
 
             color_intensity = blue_intensity;
@@ -146,6 +149,7 @@ void indicators_pwm_set_all_columns(uint16_t intensity)
     SET_PWM_DUTY_2(LED_PWM_C13, adjusted);
     SET_PWM_DUTY_2(LED_PWM_C14, adjusted);
     SET_PWM_DUTY_2(LED_PWM_C15, adjusted);
+    SET_PWM_DUTY_2(LED_PWM_C16, adjusted);
 }
 
 void indicators_pwm_enable()
@@ -166,7 +170,7 @@ void indicators_pwm_enable()
     PWM15CON = PWM_SS_BIT;
 
     PWM20CON = (uint8_t)(PWM_MODE_ENABLE_BIT | PWM_SS_BIT | PWM_CLK_DIV);
-    // PWM24CON = PWM_SS_BIT;
+    PWM24CON = PWM_SS_BIT;
     PWM25CON = PWM_SS_BIT;
 
     PWM40CON = (uint8_t)(PWM_MODE_ENABLE_BIT | PWM_SS_BIT | PWM_CLK_DIV);
@@ -192,7 +196,7 @@ void indicators_pwm_disable()
     PWM15CON = 0;
 
     PWM20CON = (uint8_t)(PWM_CLK_DIV);
-    // PWM24CON = 0;
+    PWM24CON = 0;
     PWM25CON = 0;
 
     PWM40CON = (uint8_t)(PWM_CLK_DIV);

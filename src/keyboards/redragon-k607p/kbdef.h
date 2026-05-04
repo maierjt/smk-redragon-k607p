@@ -3,22 +3,24 @@
 #include "sh68f90a.h"
 #include "keycodes.h"
 
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 17
 
 // Row Pin Bits
-#define KB_R0_P7_1 _P7_1
-#define KB_R1_P7_2 _P7_2
-#define KB_R2_P7_3 _P7_3
-#define KB_R3_P5_3 _P5_3
-#define KB_R4_P5_4 _P5_4
+#define KB_R0_P7_0 _P7_0
+#define KB_R1_P7_1 _P7_1
+#define KB_R2_P7_2 _P7_2
+#define KB_R3_P7_3 _P7_3
+#define KB_R4_P5_3 _P5_3
+#define KB_R5_P5_4 _P5_4
 
 // Row Pins
-#define KB_R0 P7_1
-#define KB_R1 P7_2
-#define KB_R2 P7_3
-#define KB_R3 P5_3
-#define KB_R4 P5_4
+#define KB_R0 P7_0
+#define KB_R1 P7_1
+#define KB_R2 P7_2
+#define KB_R3 P7_3
+#define KB_R4 P5_3
+#define KB_R5 P5_4
 
 // Column Pin Bits
 #define KB_C0_P5_0  _P5_0
@@ -37,6 +39,7 @@
 #define KB_C13_P2_1 _P2_1
 #define KB_C14_P2_0 _P2_0
 #define KB_C15_P1_5 _P1_5
+#define KB_C16_P1_4 _P1_4
 
 // Column Pins
 #define KB_C0  P5_0
@@ -55,6 +58,7 @@
 #define KB_C13 P2_1
 #define KB_C14 P2_0
 #define KB_C15 P1_5
+#define KB_C16 P1_4
 
 // LED PWM Registers
 #define LED_PWM_C0  PWM40
@@ -73,43 +77,50 @@
 #define LED_PWM_C13 PWM11
 #define LED_PWM_C14 PWM10
 #define LED_PWM_C15 PWM25
+#define LED_PWM_C16 PWM24
 
 // RGB Row Pins
-#define RGB_R0R P0_4
-#define RGB_R0G P6_1
-#define RGB_R0B P0_3
-#define RGB_R1R P6_7
-#define RGB_R1G P6_2
-#define RGB_R1B P6_6
-#define RGB_R2R P0_2
-#define RGB_R2G P6_3
-#define RGB_R2B P5_7
-#define RGB_R3R P4_5
-#define RGB_R3G P6_4
-#define RGB_R3B P4_6
-#define RGB_R4R P4_4
-#define RGB_R4G P6_5
-#define RGB_R4B P4_3
+#define RGB_R0R P4_1
+#define RGB_R0G P6_0
+#define RGB_R0B P4_0
+#define RGB_R1R P0_4
+#define RGB_R1G P6_1
+#define RGB_R1B P0_3
+#define RGB_R2R P6_7
+#define RGB_R2G P6_2
+#define RGB_R2B P6_6
+#define RGB_R3R P0_2
+#define RGB_R3G P6_3
+#define RGB_R3B P5_7
+#define RGB_R4R P4_5
+#define RGB_R4G P6_4
+#define RGB_R4B P4_6
+#define RGB_R5R P4_4
+#define RGB_R5G P4_3
+#define RGB_R5B P6_5
 #define RGB_ULR P1_1
 #define RGB_ULG P1_2
 #define RGB_ULB P1_3
 
 // RGB Row Pin Bits
-#define RGB_R0R_P0_4 _P0_4
-#define RGB_R0G_P6_1 _P6_1
-#define RGB_R0B_P0_3 _P0_3
-#define RGB_R1R_P6_7 _P6_7
-#define RGB_R1G_P6_2 _P6_2
-#define RGB_R1B_P6_6 _P6_6
-#define RGB_R2R_P0_2 _P0_2
-#define RGB_R2G_P6_3 _P6_3
-#define RGB_R2B_P5_7 _P5_7
-#define RGB_R3R_P4_5 _P4_5
-#define RGB_R3G_P6_4 _P6_4
-#define RGB_R3B_P4_6 _P4_6
-#define RGB_R4R_P4_4 _P4_4
-#define RGB_R4G_P6_5 _P6_5
-#define RGB_R4B_P4_3 _P4_3
+#define RGB_R0R_P4_1 _P4_1
+#define RGB_R0G_P6_0 _P6_0
+#define RGB_R0B_P4_0 _P4_0
+#define RGB_R1R_P0_4 _P0_4
+#define RGB_R1G_P6_1 _P6_1
+#define RGB_R1B_P0_3 _P0_3
+#define RGB_R2R_P6_7 _P6_7
+#define RGB_R2G_P6_2 _P6_2
+#define RGB_R2B_P6_6 _P6_6
+#define RGB_R3R_P0_2 _P0_2
+#define RGB_R3G_P6_3 _P6_3
+#define RGB_R3B_P5_7 _P5_7
+#define RGB_R4R_P4_5 _P4_5
+#define RGB_R4G_P6_4 _P6_4
+#define RGB_R4B_P4_6 _P4_6
+#define RGB_R5R_P4_4 _P4_4
+#define RGB_R5G_P6_5 _P6_5
+#define RGB_R5B_P4_3 _P4_3
 #define RGB_ULR_P1_1 _P1_1
 #define RGB_ULG_P1_2 _P1_2
 #define RGB_ULB_P1_3 _P1_3
