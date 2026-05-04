@@ -18,7 +18,6 @@ typedef enum {
 
 typedef enum {
     KEYBOARD_OS_MODE_WIN = 0,
-    KEYBOARD_OS_MODE_MAC = 1,
 } user_keyboard_os_mode_t;
 
 typedef struct {
@@ -51,9 +50,6 @@ void kb_update_switches()
     if (user_keyboard_state.os_mode != OS_MODE_SWITCH) {
         user_keyboard_state.os_mode = OS_MODE_SWITCH;
         switch (user_keyboard_state.os_mode) {
-            case KEYBOARD_OS_MODE_MAC:
-                dprintf("MAC_MODE\r\n");
-                break;
             case KEYBOARD_OS_MODE_WIN:
                 dprintf("WIN_MODE\r\n");
                 break;

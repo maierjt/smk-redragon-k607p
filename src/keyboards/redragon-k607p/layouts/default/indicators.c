@@ -24,13 +24,90 @@ void indicators_pre_update()
     // set all rgb sinks to low (animation step will enable needed ones)
     P0 &= ~(RGB_R3R_P0_2 | RGB_R1B_P0_3 | RGB_R1R_P0_4);
     P1 &= ~(RGB_ULR_P1_1 | RGB_ULG_P1_2 | RGB_ULB_P1_3);
-    P4 &= ~(RGB_R0B_P4_0 | RGB_R0R_P4_1 | RGB_R5B_P4_3 | RGB_R5R_P4_4 | RGB_R4R_P4_5 | RGB_R4B_P4_6);
+    P4 &= ~(RGB_R0B_P4_0 | RGB_R0R_P4_1 | RGB_R5R_P4_3 | RGB_R5B_P4_4 | RGB_R4R_P4_5 | RGB_R4B_P4_6);
     P5 &= ~(RGB_R3B_P5_7);
     P6 &= ~(RGB_R0G_P6_0 | RGB_R1G_P6_1 | RGB_R2G_P6_2 | RGB_R3G_P6_3 | RGB_R4G_P6_4 | RGB_R5G_P6_5 | RGB_R2B_P6_6 | RGB_R2R_P6_7);
 
     indicators_pwm_disable();
 }
 
+//Testing Full Blue
+/* bool indicators_update_step(keyboard_state_t *keyboard, uint8_t current_step)
+{
+    static uint16_t current_cycle = 0;
+
+    if (current_step == 0) {
+        if (current_cycle < 3072) {
+            current_cycle++;
+        } else {
+            current_cycle = 0;
+        }
+    }
+
+    uint16_t red_intensity   = 0;
+    uint16_t green_intensity = 0;
+    uint16_t blue_intensity  = 0;
+
+    if (current_cycle < 1024) {
+        blue_intensity = 1024 - (uint16_t)abs((int16_t)((current_cycle + 1024) % 2048) - 1024);
+        red_intensity  = 0 - (uint16_t)abs((int16_t)((current_cycle) % 2048) - 1024);
+    } else if (current_cycle < 2048) {
+        red_intensity   = 0 - (uint16_t)abs((int16_t)((current_cycle) % 2048) - 1024);
+        green_intensity = 0 - (uint16_t)abs((int16_t)((current_cycle + 1024) % 2048) - 1024);
+    } else {
+        green_intensity = 0 - (uint16_t)abs((int16_t)((current_cycle + 1024) % 2048) - 1024);
+        blue_intensity  = 1024 - (uint16_t)abs((int16_t)((current_cycle) % 2048) - 1024);
+    }
+
+    uint16_t color_intensity;
+
+    if (keyboard->led_state & (1 << 0)) { // num_lock
+        red_intensity = 1024;
+    }
+
+    if (keyboard->led_state & (1 << 1)) { // caps_lock
+        green_intensity = 1024;
+    }
+
+    if (keyboard->led_state & (1 << 2)) { // scroll_lock
+        blue_intensity = 1024;
+    }
+
+    switch (current_step % 3) {
+        case 0: // red
+            color_intensity = red_intensity;
+            break;
+
+        case 1: // green
+            color_intensity = green_intensity;
+            break;
+
+        case 2: // blue
+            RGB_R0B = 1;
+            RGB_R1B = 1;
+            RGB_R2B = 1;
+            RGB_R3B = 1;
+            RGB_R4B = 1;
+            RGB_R5B = 1;
+            RGB_ULB = 1;
+
+            color_intensity = blue_intensity;
+            break;
+
+        default:
+            // unreachable
+            color_intensity = 0;
+            break;
+    }
+
+    // set pwm duty cycles to expected colors
+    indicators_pwm_set_all_columns(color_intensity);
+
+    return false;
+}
+*/
+
+// Original rainbow code
 bool indicators_update_step(keyboard_state_t *keyboard, uint8_t current_step)
 {
     static uint16_t current_cycle = 0;

@@ -95,9 +95,9 @@
 #define RGB_R4R P4_5
 #define RGB_R4G P6_4
 #define RGB_R4B P4_6
-#define RGB_R5R P4_4
-#define RGB_R5G P4_3
-#define RGB_R5B P6_5
+#define RGB_R5R P4_3
+#define RGB_R5G P6_5
+#define RGB_R5B P4_4
 #define RGB_ULR P1_1
 #define RGB_ULG P1_2
 #define RGB_ULB P1_3
@@ -118,9 +118,9 @@
 #define RGB_R4R_P4_5 _P4_5
 #define RGB_R4G_P6_4 _P6_4
 #define RGB_R4B_P4_6 _P4_6
-#define RGB_R5R_P4_4 _P4_4
+#define RGB_R5R_P4_3 _P4_3
 #define RGB_R5G_P6_5 _P6_5
-#define RGB_R5B_P4_3 _P4_3
+#define RGB_R5B_P4_4 _P4_4
 #define RGB_ULR_P1_1 _P1_1
 #define RGB_ULG_P1_2 _P1_2
 #define RGB_ULB_P1_3 _P1_3

@@ -74,6 +74,7 @@ void user_matrix_pre_scan(uint8_t col)
         case 15:
             KB_C15 = 0;
             break;
+            
         case 16:
             KB_C16 = 0;
             break;
